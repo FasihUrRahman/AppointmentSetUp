@@ -1,0 +1,55 @@
+﻿@using Appoinment.Models;
+@model dynamic;
+
+@{
+    ViewData["Title"] = "Home Page";
+    int i = 1;
+}
+<h1>Doctor Table</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Doctor item in Model.Doctor)
+        {
+    
+                <tr>
+                    <th scope="row">@Convert.ToInt32(i++)</th>
+                    <td>@item.Name</td>
+                    <td>@item.Address</td>
+                    <td>@item.Speciality</td>
+                </tr>
+        }
+    </tbody>
+</table>
+</br>
+
+<h1>Patients Table</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Patient item in Model.Patient)
+        {
+
+            <tr>
+                <th scope="row">@Convert.ToInt32(i++)</th>
+                <td>@item.Name</td>
+                <td>@item.Address</td>
+                <td>@item.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>

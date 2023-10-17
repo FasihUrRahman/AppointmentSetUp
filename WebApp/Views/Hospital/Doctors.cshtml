@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Appoinment.Models.Doctor>
+@using Appoinment.Models;
+@using Appointment.Data;
+@inject AppointmentContext db;
+@{
+    string accessToken = Context.Request.Cookies["user-access-token"];
+    User user = new User();
+    if (!string.IsNullOrEmpty(accessToken))
+    {
+        user = db.Users.Where(x => x.AccessToken.Equals(accessToken)).FirstOrDefault();
+    }
+}
+
+@{
+    ViewData["Title"] = "Doctors";
+}
+<h1>New Doctors</h1>
+<div class="container">
+    <div class="row justify-content-center">
+        @if(user.UserRoleId == 1)
+        {
+            <div class="col-6">
+                <a class="btn btn-info" asp-action="AddEditDoctor" asp-controller="Hospital">Create New</a>
+            </div>
+        }
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            @if(user.UserRoleId == 1){
+                                <th scope="col">Action</th>
+                            }
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelitem=> item.Id)</td>
+                                    <td>@Html.DisplayFor(modelitem=> item.Name)</td>
+                                    <td>@Html.DisplayFor(modelitem=> item.Address)</td>
+                                    <td>@Html.DisplayFor(modelitem=> item.Speciality)</td>
+                                    @if(user.UserRoleId == 1){
+                                        <td><a class="btn btn-info" asp-action="AddEditDoctor" asp-controller="Hospital" asp-route-Id="@item.Id">Edit</a> <a class="btn btn-danger" asp-action="DeleteDoctor" asp-controller="Hospital" asp-route-Id="@item.Id">Delete</a></td>
+                                    }
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>

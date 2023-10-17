@@ -1,0 +1,36 @@
+﻿@model Appoinment.Models.UserRole;
+@{
+    ViewData["Title"] = "Add or Edit Role";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <form asp-action="AddEditRole">
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label">Name</label>
+                    <input asp-for="Name" type="text" class="form-control">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                @if (!string.IsNullOrEmpty(ViewBag.Error))
+                {
+                    <p class="text-danger">@ViewBag.Error</p>
+                }
+                <button type="submit" class="mt-3 btn btn-primary">Add / Update</button> <a class="mt-3 btn btn-danger" asp-action="Roles" asp-controller="User">Back</a>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

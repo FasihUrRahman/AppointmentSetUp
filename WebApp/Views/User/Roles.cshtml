@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Appoinment.Models.UserRole>
+
+@{
+    ViewData["Title"] = "User Roles";
+}
+<h1>New Roles</h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <a class="btn btn-info" asp-action="AddEditRole" asp-controller="User">Create New</a>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelitem=> item.Id)</td>
+                                <td>@Html.DisplayFor(modelitem=> item.Name)</td>
+                                <td><a class="btn btn-info" asp-action="AddEditRole" asp-controller="User" asp-route-Id="@item.Id">Edit</a> <a class="btn btn-danger" asp-action="DeleteRole" asp-controller="User" asp-route-Id="@item.Id">Delete</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Appoinment.Models.User>
+
+@{
+    ViewData["Title"] = "Users";
+    string accessToken = Context.Request.Cookies["user-access-token"];
+}
+<h1>Users</h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col">
+            <a class="btn btn-info" asp-action="AddEditUser" asp-controller="User">Create New</a>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email Address</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">Active</th>
+                            <th scope="col">Joined On</th>
+                            <th scope="col">User Role</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelitem=> item.Id)</td>
+                                <td>@Html.DisplayFor(modelitem=> item.Name)</td>
+                                <td>@Html.DisplayFor(modelitem=> item.EmailAddress)</td>
+                                <td>@Html.DisplayFor(modelitem=> item.Password)</td>
+                                <td>@Html.DisplayFor(modelitem=> item.IsConfirmed)</td>
+                                <td>@Html.DisplayFor(modelitem=> item.JoinedOn)</td>
+                                <td>@Html.DisplayFor(modelitem=> item.UserRole.Name)</td>
+                                <td>
+                                    <a asp-action="AddEditUser" asp-controller="User" asp-route-Id="@item.Id" class="btn btn-info">Edit</a>
+                                    @if (accessToken != item.AccessToken)
+                                    {
+                                        <a asp-action="DeleteUser" asp-controller="User" asp-route-Id="@item.Id" class="btn btn-danger">Delete</a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                        @if (!string.IsNullOrEmpty(ViewBag.Error))
+                        {
+                            <p class="text-danger">@ViewBag.Error</p>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>

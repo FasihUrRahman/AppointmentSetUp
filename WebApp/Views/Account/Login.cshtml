@@ -1,0 +1,41 @@
+﻿@model Appoinment.Models.User;
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <form asp-action="Login">
+                <div class="mb-3">
+                    <label asp-for="EmailAddress" class="form-label">Email address</label>
+                    <input asp-for="EmailAddress" type="email" class="form-control">
+                    <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label">Password</label>
+                    <input asp-for="Password" type="password" class="form-control">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                @if (!string.IsNullOrEmpty(ViewBag.Error))
+                {
+                    <p class="text-danger">@ViewBag.Error</p>
+                }
+                <button type="submit" class="mt-3 btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
